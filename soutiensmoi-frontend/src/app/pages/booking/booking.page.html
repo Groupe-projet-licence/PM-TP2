@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>New Booking</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Réserver un tutorat</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-item>
+    <ion-label position="floating">Sujet</ion-label>
+    <ion-input [(ngModel)]="subject"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Date</ion-label>
+    <ion-datetime [(ngModel)]="date" presentation="date-time"></ion-datetime>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Message</ion-label>
+    <ion-textarea [(ngModel)]="message"></ion-textarea>
+  </ion-item>
+
+  <ion-button expand="full" (click)="bookTutor()">Réserver</ion-button>
+
+  <p class="ion-text-center">{{ responseMessage }}</p>
+</ion-content>

@@ -19,7 +19,8 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => [env('FRONTEND_URL', 'http://localhost:3000')],
+    'allowed_origins' => ['http://192.168.43.42:8100'], // IP de ton téléphone + port Ionic
+
 
     'allowed_origins_patterns' => [],
 
