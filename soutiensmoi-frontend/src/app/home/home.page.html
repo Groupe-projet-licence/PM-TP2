@@ -1,20 +1,27 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+<ion-header>
+  <ion-toolbar color="light">
+    <ion-title class="title-center">Soutiens-moi !</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
+  <div class="container">
+    <h2 class="welcome">Bienvenue sur <span>Soutiens-moi !</span></h2>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+    <ion-button expand="block" class="action-btn" (click)="goTo('/search')">
+      Chercher un tuteur
+    </ion-button>
+
+    <ion-button expand="block" class="action-btn" (click)="goTo('/planifier')">
+      Planifier une séance
+    </ion-button>
+
+    <ion-button expand="block" class="action-btn" (click)="goTo('/faq')">
+      Voir la FAQ
+    </ion-button>
+
+    <ion-button expand="block" class="action-btn" (click)="goTo('/chat')">
+      Discuter avec un tuteur
+    </ion-button>
   </div>
 </ion-content>

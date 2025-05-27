@@ -1,0 +1,9 @@
+<ion-header><ion-toolbar><ion-title>Connexion</ion-title></ion-toolbar></ion-header>
+<ion-content>
+  <ion-list>
+    <ion-item><ion-input [(ngModel)]="form.email" type="email" placeholder="Email"></ion-input></ion-item>
+    <ion-item><ion-input [(ngModel)]="form.password" type="password" placeholder="Mot de passe"></ion-input></ion-item>
+  </ion-list>
+  <ion-button expand="full" (click)="login()">Se connecter</ion-button>
+  <ion-button fill="clear" [routerLink]="['/register']">Créer un compte</ion-button>
+</ion-content>

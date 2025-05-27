@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Discussion</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div *ngFor="let msg of messages" [ngClass]="msg.expediteur_id === userId ? 'sent' : 'received'" class="message-bubble">
+    {{ msg.texte }}
+    <div class="time">{{ msg.envoye_le | date:'shortTime' }}</div>
+  </div>
+
+  <ion-item class="input-bar">
+    <ion-input [(ngModel)]="message" placeholder="Votre message..."></ion-input>
+    <ion-button (click)="envoyer()" color="primary">Envoyer</ion-button>
+  </ion-item>
+</ion-content>

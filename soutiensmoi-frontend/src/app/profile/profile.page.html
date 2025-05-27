@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Profil du Tuteur</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="tuteur" class="ion-padding">
+  <ion-avatar class="center-avatar">
+    <img [src]="tuteur.avatar || 'assets/avatar.png'" alt="Avatar">
+  </ion-avatar>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{ tuteur.name }}</ion-card-title>
+      <ion-card-subtitle>{{ tuteur.role }}</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <p><strong>Bio :</strong> {{ tuteur.bio || 'Non renseignée' }}</p>
+      <p><strong>Note moyenne :</strong> {{ getNoteMoyenne() }}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-list>
+    <ion-list-header>Compétences</ion-list-header>
+    <ion-item *ngFor="let skill of tuteur.skills">
+      <ion-label>{{ skill.name }}</ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-list-header>Feedbacks</ion-list-header>
+    <ion-item *ngFor="let fb of tuteur.feedbacks">
+      <ion-label>
+  <h3>
+    Note :
+    <ng-container *ngFor="let star of [1,2,3,4,5]">
+      <ion-icon name="star" *ngIf="star <= fb.note"></ion-icon>
+      <ion-icon name="star-outline" *ngIf="star > fb.note"></ion-icon>
+    </ng-container>
+  </h3>
+</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

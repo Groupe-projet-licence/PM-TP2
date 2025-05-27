@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ question.titre }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <p>{{ question.contenu }}</p>
+
+  <h3>Réponses</h3>
+  <ion-card *ngFor="let r of reponses">
+    <ion-card-content>
+      <p>{{ r.contenu }}</p>
+      <small>Votes : {{ r.votes }}</small>
+      <ion-button size="small" fill="clear" (click)="voter(r, 1)">+</ion-button>
+      <ion-button size="small" fill="clear" (click)="voter(r, -1)">-</ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-item>
+    <ion-input [(ngModel)]="reponse" placeholder="Votre réponse..."></ion-input>
+  </ion-item>
+  <ion-button expand="block" (click)="envoyerReponse()">Répondre</ion-button>
+</ion-content>

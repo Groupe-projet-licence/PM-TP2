@@ -1,0 +1,33 @@
+.message-bubble {
+  max-width: 80%;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 12px;
+  position: relative;
+  word-wrap: break-word;
+}
+
+.sent {
+  background-color: #d1eaff;
+  align-self: flex-end;
+  margin-left: auto;
+}
+
+.received {
+  background-color: #f1f1f1;
+  align-self: flex-start;
+  margin-right: auto;
+}
+
+.time {
+  font-size: 0.7rem;
+  color: gray;
+  text-align: right;
+}
+
+.input-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}

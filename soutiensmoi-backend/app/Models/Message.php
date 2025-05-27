@@ -4,23 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Message extends Model
-{
-    protected $fillable = ['session_id', 'sender_id', 'content'];
+class Message extends Model {
+    protected $fillable = ['expediteur_id', 'destinataire_id', 'texte', 'envoye_le'];
 
-    /**
-     * A message belongs to a session.
-     */
-    public function session()
-    {
-        return $this->belongsTo(Session::class);
+    public function expediteur() {
+        return $this->belongsTo(User::class, 'expediteur_id');
     }
 
-    /**
-     * A message belongs to a sender (User).
-     */
-    public function sender()
-    {
-        return $this->belongsTo(User::class, 'sender_id');
+    public function destinataire() {
+        return $this->belongsTo(User::class, 'destinataire_id');
     }
 }

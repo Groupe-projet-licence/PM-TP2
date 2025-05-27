@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Mon Profil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="user" class="ion-padding">
+  <ion-avatar class="center-avatar">
+    <img [src]="user.avatar || 'assets/avatar.png'" alt="Avatar">
+  </ion-avatar>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{ user.name }}</ion-card-title>
+      <ion-card-subtitle>{{ user.role }}</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <p><strong>Email :</strong> {{ user.email }}</p>
+      <p><strong>Bio :</strong> {{ user.bio || 'Non renseignée' }}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-list *ngIf="user.skills && user.skills.length">
+    <ion-list-header>Compétences</ion-list-header>
+    <ion-item *ngFor="let skill of user.skills">
+      <ion-label>{{ skill.name }}</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

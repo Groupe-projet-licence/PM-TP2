@@ -1,55 +1,35 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Feedback;
-use App\Models\Session;
 
-class FeedbackController extends Controller
-{
-    // All routes require authentication
-    public function __construct()
-    {
-        $this->middleware('auth:sanctum');
+class FeedbackController extends Controller {
+    public function index() {
+        return Feedback::with(['user', 'session'])->get();
     }
 
-    // Submit feedback for a completed session (student only)
-    public function store(Request $request)
-    {
-        // Validate input
-        $validated = $request->validate([
+    public function store(Request $request) {
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
             'session_id' => 'required|exists:sessions,id',
-            'rating' => 'required|integer|min:1|max:5',
-            'comment' => 'nullable|string'
+            'note' => 'required|integer|min:1|max:5',
+            'commentaire' => 'nullable|string',
         ]);
 
-        $session = Session::findOrFail($validated['session_id']);
-
-        // Ensure the current user was the student in the session
-        if ($session->student_id !== $request->user()->id) {
-            return response()->json(['error' => 'Only the student can leave feedback'], 403);
-        }
-
-        // Optionally ensure feedback doesn't already exist
-        if ($session->feedback) {
-            return response()->json(['error' => 'Feedback already submitted for this session'], 400);
-        }
-
-        // Create feedback
-        $feedback = Feedback::create($validated);
-
+        $feedback = Feedback::create($request->all());
         return response()->json($feedback, 201);
     }
 
-    // List feedbacks for a specific tutor
-    public function indexForTutor($tutorId)
-    {
-        // Find all feedback where the session's tutor matches
-        $feedbacks = Feedback::whereHas('session', function($query) use ($tutorId) {
-            $query->where('tutor_id', $tutorId);
-        })->get();
+    public function show($id) {
+        return Feedback::with(['user', 'session'])->findOrFail($id);
+    }
 
-        return response()->json($feedbacks);
+    public function destroy($id) {
+        $feedback = Feedback::findOrFail($id);
+        $feedback->delete();
+        return response()->json(['message' => 'Feedback supprimé']);
     }
 }

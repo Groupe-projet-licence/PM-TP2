@@ -15,21 +15,11 @@ return [
     |
     */
 
-    'paths' => ['*'],
-
-    'allowed_methods' => ['*'],
-
-    'allowed_origins' => ['http://192.168.43.42:8100'], // IP de ton téléphone + port Ionic
-
-
-    'allowed_origins_patterns' => [],
-
-    'allowed_headers' => ['*'],
-
-    'exposed_headers' => [],
-
-    'max_age' => 0,
-
-    'supports_credentials' => true,
-
+ 'paths' => ['api/*', 'sanctum/csrf-cookie'],
+'allowed_origins' => ['http://192.168.43.42:8100', 'http://localhost:8100'],
+'allowed_methods' => ['*'],
+'allowed_headers' => ['*'],
+'exposed_headers' => [],
+'max_age' => 0,
+'supports_credentials' => true,
 ];

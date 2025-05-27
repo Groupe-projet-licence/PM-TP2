@@ -1,0 +1,10 @@
+.center-avatar {
+  display: flex;
+  justify-content: center;
+  margin: 1rem auto;
+  width: 100px;
+  height: 100px;
+}
+ion-avatar img {
+  object-fit: cover;
+}

@@ -7,15 +7,15 @@ import { environment } from '../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class ChatService {
-  private apiUrl = environment.apiUrl; // Access apiUrl from the environment object
+  private API = 'http://192.168.43.42/api'; // Access apiUrl from the environment object
 
   constructor(private http: HttpClient) {}
 
   getMessages(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/chat`);
+    return this.http.get<any[]>(`${this.API}/chat`);
   }
 
   sendMessage(text: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/chat`, { text });
+    return this.http.post(`${this.API}/chat`, { text });
   }
 }

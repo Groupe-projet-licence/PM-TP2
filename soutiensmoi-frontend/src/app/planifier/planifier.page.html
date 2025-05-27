@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Planifier une séance</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list>
+    <ion-item>
+      <ion-label position="floating">Matière</ion-label>
+      <ion-input [(ngModel)]="form.matiere"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Date</ion-label>
+      <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="form.date"></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Heure</ion-label>
+      <ion-datetime displayFormat="HH:mm" pickerFormat="HH:mm" [(ngModel)]="form.heure" presentation="time"></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Mode</ion-label>
+      <ion-select [(ngModel)]="form.mode">
+        <ion-select-option value="visio">Visio</ion-select-option>
+        <ion-select-option value="présentiel">Présentiel</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+
+  <ion-button expand="block" class="btn-planifier" (click)="planifier()">
+    Envoyer la demande
+  </ion-button>
+</ion-content>

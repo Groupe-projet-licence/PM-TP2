@@ -4,15 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Feedback extends Model
-{
-    protected $fillable = ['session_id', 'rating', 'comment'];
+class Feedback extends Model {
+    protected $fillable = ['user_id', 'session_id', 'note', 'commentaire'];
 
-    /**
-     * A feedback belongs to a session.
-     */
-    public function session()
-    {
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
+
+    public function session() {
         return $this->belongsTo(Session::class);
     }
 }

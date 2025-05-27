@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>FAQ Collaborative</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-button expand="block" (click)="poserQuestion()">Poser une question</ion-button>
+  <ion-button expand="block" routerLink="/faq-new">Poser une question</ion-button>
+
+  <ion-card *ngFor="let q of questions">
+    <ion-card-header>
+      <ion-card-title>{{ q.titre }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>{{ q.contenu | slice:0:100 }}...</p>
+      <ion-button size="small" fill="outline" (click)="voirQuestion(q.id)">Voir les réponses</ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

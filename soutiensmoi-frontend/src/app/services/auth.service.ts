@@ -1,32 +1,73 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-
-const apiUrl = 'http://192.168.43.42:8000/api';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Storage } from '@ionic/storage-angular';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  constructor(private http: HttpClient) {}
+  private API = 'http://192.168.43.42:8000'; // sans /api ici pour accéder à /sanctum
+  private API_URL = `${this.API}/api`;
 
-  login(credentials: { 
-    email: string,
-     password: string }):
-     Observable<any> {
-    return this.http.post(`${apiUrl}/login`, credentials);
+  constructor(private http: HttpClient, private storage: Storage) {
+    this.storage.create();
   }
 
-  register(data: {
-    name: string;
-    email: string;
-    password: string;
-    password_confirmation: string;
-    role: string; // student ou tutor
-  }): Observable<any> {
-    return this.http.post(`${apiUrl}/register`, data);
+  async register(data: any): Promise<any> {
+    try {
+      await firstValueFrom(this.http.post(`${this.API}/sanctum/csrf-cookie`, { withCredentials: true }));
+      console.log('CSRF cookie demande');
+      const response = await firstValueFrom(this.http.post(`${this.API_URL}/register`, data, {
+        withCredentials: true
+      }));
+      return response;
+    } catch (error) {
+      console.error("Erreur lors de l'inscription:", error);
+      throw error;
+    }
   }
 
+  async login(data: any): Promise<any> {
+    try {
+      await firstValueFrom(this.http.get(`${this.API}/sanctum/csrf-cookie`, { withCredentials: true }));
+      const response = await firstValueFrom(this.http.post(`${this.API_URL}/login`, data, {
+        withCredentials: true
+      }));
+      return response;
+    } catch (error) {
+      console.error("Erreur lors de la connexion:", error);
+      throw error;
+    }
+  }
 
-  getProfile(): Observable<any> {
-    return this.http.get(`${apiUrl}/profile`);
+  logout() {
+    return this.storage.remove('token');
+  }
+
+  setToken(token: string) {
+    return this.storage.set('token', token);
+  }
+
+  getToken() {
+    return this.storage.get('token');
+  }
+
+  async getUser(): Promise<any> {
+    try {
+      const token = await this.getToken();
+      const headers = new HttpHeaders({
+        Authorization:`Bearer ${token}`
+      });
+
+      const response = await firstValueFrom(
+        this.http.get(`${this.API_URL}/user`, {
+          headers,
+          withCredentials: true
+        })
+      );
+      return response;
+    } catch (error) {
+      console.error("Erreur lors de la récupération de l'utilisateur:", error);
+      throw error;
+    }
   }
 }

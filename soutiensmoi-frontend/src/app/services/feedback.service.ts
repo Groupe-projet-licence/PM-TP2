@@ -11,11 +11,11 @@ interface FeedbackPayload {
   providedIn: 'root'
 })
 export class FeedbackService {
-  private apiUrl = environment.apiUrl;
+ private API = 'http://192.168.43.42/api';
 
   constructor(private http: HttpClient) { }
 
   send(payload: FeedbackPayload): Observable<any> {
-    return this.http.post(`${this.apiUrl}/feedback`, payload); // Assuming your API endpoint is /feedback and you're using POST
+    return this.http.post(`${this.API}/feedback`, payload); // Assuming your API endpoint is /feedback and you're using POST
   }
 }
