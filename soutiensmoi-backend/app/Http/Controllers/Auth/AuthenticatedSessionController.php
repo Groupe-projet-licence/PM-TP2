@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -15,11 +18,16 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): Response
     {
-        $request->authenticate();
+        $user = User::where('email', $request->email)->first();
 
-        $request->session()->regenerate();
+        if (!$user || !Hash::check($request->password, $user->password)) {
+            throw ValidationException::withMessages([
+                'email' => ['Identifiants invalides.'],
+            ]);
+        }
 
-        return response()->noContent();
+        $token = $user->createToken('authToken')->plainTextToken;
+        return response()->json(['token' => $token, 'user' => $user]);
     }
 
     /**
@@ -27,12 +35,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request): Response
     {
-        Auth::guard('web')->logout();
-
-        $request->session()->invalidate();
-
-        $request->session()->regenerateToken();
-
-        return response()->noContent();
+        $request->user()->currentAccessToken()->delete();
+        return response()->json(['message' => 'Déconnecté avec succès']);
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProfilController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
@@ -20,20 +21,20 @@ use App\Http\Controllers\API\UserController;
 */
 
 // ============ PUBLIC ROUTES ============ //
-Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']);
+//Route::post('/register', [AuthController::class, 'register']);
+//Route::post('/login', [AuthController::class, 'login']);
 
 // ============ PROTECTED ROUTES ============ //
 Route::middleware('auth:sanctum')->group(function () {
-
-    // Authentification
-    Route::get('/user', [AuthController::class, 'user']);
-    Route::post('/logout', [AuthController::class, 'logout']);
-
-    // Alias profil utilisateur
-    Route::get('/profile', function (Request $request) {
-        return response()->json(['user' => $request->user()]);
-    });
+    /*
+         //Authentification
+         Route::get('/user', [AuthController::class, 'user']);
+         Route::post('/logout', [AuthController::class, 'logout']);
+          Alias profil utilisateur
+          Route::get('/profile', function (Request $request) {
+              return response()->json(['user' => $request->user()]);
+          });
+     */
 
     // Compétences
     Route::apiResource('skills', SkillController::class);
@@ -55,12 +56,26 @@ Route::middleware('auth:sanctum')->group(function () {
 
     //Lister les tuteurs
     Route::get('/tutors', function () {
-    return \App\Models\User::where('role', 'tuteur')->with('skills', 'feedbacks')->get();});
+        return \App\Models\User::where('role', 'tuteur')->with('skills', 'feedbacks')->get();
+    });
 
 
+    Route::get('/tutors', [UserController::class, 'index']);
+    Route::get('/tutors/{id}', [UserController::class, 'show']);
+    Route::get('/search-tutors', [UserController::class, 'search']);
+});
+
+/*---------------------------------------------------------------------------------------------------------------
+ |                                                Route de Darlin
+ ---------------------------------------------------------------------------------------------------------------*/
 
 
-Route::get('/tutors', [UserController::class, 'index']);
-Route::get('/tutors/{id}', [UserController::class, 'show']);
-Route::get('/search-tutors', [UserController::class, 'search']);
+require __DIR__ . '/auth.php';
+
+Route::middleware(['auth:sanctum'])->group(function () {
+
+    Route::get('/user', [ProfilController::class, 'index'])->name('user');
+    Route::get('/profil', [ProfilController::class, 'edit'])->name('profil.edit');
+    Route::patch('/profil', [ProfilController::class, 'update'])->name('profil.update');
+    Route::delete('/profil', [ProfilController::class, 'destroy'])->name('profil.destroy');
 });

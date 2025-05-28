@@ -10,6 +10,14 @@ return new class extends Migration {
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
+
+            $table->float('note')->default(0);
+            $table->json('skills')->nullable();
+            $table->integer('level')->default(2);
+            $table->binary('image')->nullable();
+            $table->string('image_mime')->nullable();
+
+
             $table->enum('role', ['etudiant', 'tuteur', 'admin'])->default('etudiant');
             $table->string('avatar')->nullable();
             $table->text('bio')->nullable();
