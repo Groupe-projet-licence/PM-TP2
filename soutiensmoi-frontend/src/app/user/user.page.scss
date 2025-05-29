@@ -1,10 +1,44 @@
-.center-avatar {
-  display: flex;
-  justify-content: center;
-  margin: 1rem auto;
-  width: 100px;
-  height: 100px;
+ion-content {
+  background-color: #f5f5f5;
+  padding: 1rem;
 }
+
+ion-item {
+  --background: #fff;
+  --border-radius: 12px;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+ion-input {
+  padding: 0.8rem;
+}
+
 ion-avatar img {
-  object-fit: cover;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+}
+
+ion-label h2 {
+  font-weight: bold;
+  margin: 0;
+}
+
+ion-label p {
+  margin: 0.2rem 0;
+  font-size: 0.9rem;
+  color: #444;
+}
+
+ion-button {
+  margin-left: auto;
+  --color: #0077cc;
+}
+
+.ion-text-center {
+  text-align: center;
+  margin-top: 2rem;
+  font-style: italic;
+  color: #888;
 }

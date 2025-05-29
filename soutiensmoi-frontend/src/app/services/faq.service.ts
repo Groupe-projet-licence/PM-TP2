@@ -1,17 +1,43 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment';
+import { environment } from 'src/environments/environment';
+import { firstValueFrom } from 'rxjs';
 
-
-
-@Injectable({ providedIn: 'root' })
+@Injectable({
+  providedIn: 'root'
+})
 export class FaqService {
-   private API = 'http://192.168.43.42/api'; // Access apiUrl from the environment object
+  private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 
-  getFaqs(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.API}/faqs`);
+  async getAllFaqs(): Promise<any> {
+    return await firstValueFrom(
+      this.http.get(`${this.apiUrl}/faq-posts`, { withCredentials: true })
+    );
+  }
+
+  async getFaq(id: number): Promise<any> {
+    return await firstValueFrom(
+      this.http.get(`${this.apiUrl}/faq-posts/${id}`, { withCredentials: true })
+    );
+  }
+
+  async createFaq(data: any): Promise<any> {
+    return await firstValueFrom(
+      this.http.post(`${this.apiUrl}/faq-posts, data`, { withCredentials: true })
+    );
+  }
+
+  async submitResponse(data: any): Promise<any> {
+    return await firstValueFrom(
+      this.http.post(`${this.apiUrl}/faq-reponses`, data, { withCredentials: true })
+    );
+  }
+
+  async voteResponse(responseId: number): Promise<any> {
+    return await firstValueFrom(
+      this.http.post(`${this.apiUrl}/faq-reponses/${responseId}/vote`, {}, { withCredentials: true })
+    );
   }
 }

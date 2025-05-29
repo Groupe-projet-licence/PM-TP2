@@ -6,24 +6,19 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class ChatService {
+export class FaqNewService {
   private API = environment.baseUrl;
   private API_URL = `${this.API}/api`;
 
   constructor(private http: HttpClient) {}
 
-  async getMessages(): Promise<any> {
+  async createFaqPost(data: any): Promise<any> {
     await firstValueFrom(this.http.get(`${this.API}/sanctum/csrf-cookie`, { withCredentials: true }));
-    return await firstValueFrom(
-      this.http.get(`${this.API_URL}/messages`, { withCredentials: true })
-    );
-  }
 
-  async sendMessage(data: any): Promise<any> {
-    await firstValueFrom(this.http.get(`${this.API}/sanctum/csrf-cookie`, { withCredentials: true }));
     return await firstValueFrom(
-      this.http.post(`${this.API_URL}/messages`, data, { withCredentials: true })
+      this.http.post(`${this.API_URL}/faq-posts`, data, {
+        withCredentials: true
+      })
     );
   }
 }
-

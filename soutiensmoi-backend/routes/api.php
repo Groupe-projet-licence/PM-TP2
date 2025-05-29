@@ -2,14 +2,14 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\API\AuthController;
-use App\Http\Controllers\API\SessionController;
-use App\Http\Controllers\API\FeedbackController;
-use App\Http\Controllers\API\SkillController;
-use App\Http\Controllers\API\MessageController;
-use App\Http\Controllers\API\FaqPostController;
-use App\Http\Controllers\API\FaqResponseController;
-use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\SessionController;
+use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\SkillController;
+use App\Http\Controllers\MessageController;
+use App\Http\Controllers\FaqPostController;
+use App\Http\Controllers\FaqResponseController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,8 +59,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
 
-
-Route::get('/tutors', [UserController::class, 'index']);
-Route::get('/tutors/{id}', [UserController::class, 'show']);
-Route::get('/search-tutors', [UserController::class, 'search']);
+    Route::get('/users', [UserController::class, 'index']);
+    Route::get('/users/{id}', [UserController::class, 'show']);
+    Route::get('/users/search', [UserController::class, 'search']);
 });

@@ -21,11 +21,14 @@ export class ProfilePage implements OnInit {
   constructor(private route: ActivatedRoute, private userService: UserService) {}
 
   ngOnInit() {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.userService.getTuteur(id).subscribe((res: any) => {
-      this.tuteur = res;
-    });
-  }
+  const id = Number(this.route.snapshot.paramMap.get('id'));
+
+  this.userService.getUser(id).then((res: any) => {
+    this.tuteur = res;
+  }).catch((err: any) => {
+    console.error('Erreur lors du chargement du tuteur :', err);
+  });
+}
 
   getNoteMoyenne(): string {
   const feedbacks = this.tuteur?.feedbacks;

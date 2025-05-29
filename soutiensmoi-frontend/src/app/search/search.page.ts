@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-search',
@@ -19,11 +20,15 @@ export class SearchPage {
 
   constructor(private userService: UserService, private navCtrl: NavController) {}
 
-  chercher() {
-    this.userService.searchTuteurs(this.query).subscribe((res: any) => {
-      this.tuteurs = res;
-    });
+ async chercher() {
+  try {
+    const res: any = await this.userService.searchUsers(this.query);  // PAS de firstValueFrom ici
+    this.tuteurs = res;
+  } catch (error) {
+    console.error('Erreur lors de la recherche de tuteurs :', error);
   }
+}
+
 
   voirProfil(id: number) {
     this.navCtrl.navigateForward(`/profile/${id}`);

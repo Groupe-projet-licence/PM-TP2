@@ -18,7 +18,10 @@ export class RegisterPage {
     name: '',
     email: '',
     password: '',
-    password_confirmation: ''
+    password_confirmation: '',
+    role: 'etudiant',
+    avatar: '',
+    bio: ''
   };
 
   constructor(

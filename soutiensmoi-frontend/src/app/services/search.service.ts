@@ -1,20 +1,20 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment'; // Import environment
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SearchService {
-  private apiUrl ='http://192.168.43.42:8000/api';  // Get apiUrl from environment
+  private apiUrl =` ${environment.apiUrl}/users`; // ou une route dédiée à la recherche
 
   constructor(private http: HttpClient) {}
 
-  search(subject: string, level: string): Observable<any[]> {
-    const params = new HttpParams()
-      .set('subject', subject)
-      .set('level', level);
-    return this.http.get<any[]>(`${this.apiUrl}/search`, { params });
+  async search(query: string): Promise<any> {
+    const params = new HttpParams().set('q', query);
+    return await firstValueFrom(
+      this.http.get(this.apiUrl, { params, withCredentials: true })
+    );
   }
 }

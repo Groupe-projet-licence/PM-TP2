@@ -18,10 +18,10 @@ export class FeedbackPage {
   constructor(private feedbackService: FeedbackService) { }
 
   sendFeedback() {
-    if (!this.message) return;
-    this.feedbackService.send({ text: this.message }).subscribe(
-      (res: any) => console.log('Feedback sent', res),
-      (err: any) => console.error('Feedback error', err)
-    );
-  }
+  if (!this.message) return;
+
+  this.feedbackService.submitFeedback({ text: this.message })
+    .then(res => console.log('Feedback sent', res))
+    .catch(err => console.error('Feedback error', err));
+}
 }

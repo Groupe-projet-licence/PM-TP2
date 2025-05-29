@@ -39,13 +39,16 @@ describe('RegisterPage', () => {
 
   it('devrait appeler authService.register et naviguer après succès', () => {
     const fakeToken = '123abc';
-    authServiceSpy.register.and.returnValue(of({ token: fakeToken }));
+   authServiceSpy.register.and.returnValue(Promise.resolve({ token: fakeToken }));
 
     component.form = {
       name: 'Test User',
       email: 'test@example.com',
       password: 'password',
-      password_confirmation: 'password'
+      password_confirmation: 'password',
+      role:'etudiant',
+      avatar: '',
+      bio:'',
     };
 
     component.register();
@@ -60,7 +63,7 @@ describe('RegisterPage', () => {
     const errorResponse = {
       error: { message: 'Erreur serveur' }
     };
-    authServiceSpy.register.and.returnValue(throwError(errorResponse));
+   authServiceSpy.register.and.returnValue(Promise.reject(errorResponse));
 
     component.register();
 

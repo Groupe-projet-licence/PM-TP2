@@ -1,19 +1,20 @@
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { UserPageRoutingModule } from './user-routing.module';
-import { UserPage } from './user.page'; // composant standalone
+import {  UserPage } from './user.page';
 
 @NgModule({
-  imports: [CommonModule,
+  imports: [
+    CommonModule,
     FormsModule,
     IonicModule,
     UserPageRoutingModule,
     UserPage
   ],
-
-  // declarations: [UserPage]
+ // declarations: [ProfilePage]
 })
 export class UserPageModule {}
