@@ -1,39 +1,44 @@
-import { Component } from '@angular/core';
-import { ChatService } from '../../services/chat.service';
-import { IonicModule } from '@ionic/angular'; // Import IonicModule
-import { FormsModule } from '@angular/forms'; // Import FormsModule for ngModel
-import { CommonModule } from '@angular/common'; // Import CommonModule for *ngFor
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.page.html',
   styleUrls: ['./chat.page.scss'],
-  standalone: true, // Make sure this is true
-  imports: [IonicModule, FormsModule, CommonModule] // Add CommonModule to imports
 })
-export class ChatPage {
+export class ChatPage implements OnInit {
+  destinataireId: number;
+  userId = 1; // à remplacer dynamiquement
+  message = '';
   messages: any[] = [];
-  newMessage = '';
 
-  constructor(private chatService: ChatService) {
+  constructor(private route: ActivatedRoute, private http: HttpClient) {
+    this.destinataireId = Number(this.route.snapshot.paramMap.get('id'));
+  }
+
+  ngOnInit() {
     this.loadMessages();
+    setInterval(() => this.loadMessages(), 5000); // polling simple
   }
 
   loadMessages() {
-    this.chatService.getMessages().subscribe({
-      next: (res) => this.messages = res,
-      error: (err) => console.error(err)
-    });
+      this.http.get(http://localhost:8000/api/messages?user1=${this.userId}&user2=${this.destinataireId})
+      .subscribe((res: any) => this.messages = res);
   }
 
-  sendMessage() {
-    if (!this.newMessage.trim()) return;
-    this.chatService.sendMessage(this.newMessage).subscribe({
-      next: (res) => {
-        this.messages.push(res);
-        this.newMessage = '';
-      },
-      error: (err) => console.error(err)
-    });
-  }
+  envoyer() {
+    const payload = {
+      expediteur_id: this.userId,
+      destinataire_id: this.destinataireId,
+      texte: this.message
+    };
+
+    this.http.post('http://localhost:8000/api/messages', payload)
+      .subscribe(() => {
+        this.message = '';
+        this.loadMessages();
+      });
+  }
 }
+

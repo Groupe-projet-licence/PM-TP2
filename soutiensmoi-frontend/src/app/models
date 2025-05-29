@@ -1,0 +1,6 @@
+export interface message{
+    id:string;
+    text: string;
+    sender: 'me'|'other';
+    timestamp: Date;
+}
