@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Storage } from '@ionic/storage-angular';
 import { firstValueFrom } from 'rxjs';
+import { environment } from '../../environments/environment'; // <-- import l'environnement
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private API = 'http://192.168.43.42:8000'; // sans /api ici pour accéder à /sanctum
-  private API_URL = `${this.API}/api`;
+  private API = environment.baseUrl;       // pour /sanctum/csrf-cookie
+  private API_URL = environment.apiUrl;    // pour /api/register, /api/login, etc.
 
   constructor(private http: HttpClient, private storage: Storage) {
     this.storage.create();
@@ -14,8 +15,8 @@ export class AuthService {
 
   async register(data: any): Promise<any> {
     try {
-      await firstValueFrom(this.http.post(`${this.API}/sanctum/csrf-cookie`, { withCredentials: true }));
-      console.log('CSRF cookie demande');
+      await firstValueFrom(this.http.get(`${this.API}/sanctum/csrf-cookie`, { withCredentials: true }));
+      console.log('CSRF cookie demandé');
       const response = await firstValueFrom(this.http.post(`${this.API_URL}/register`, data, {
         withCredentials: true
       }));
@@ -55,7 +56,7 @@ export class AuthService {
     try {
       const token = await this.getToken();
       const headers = new HttpHeaders({
-        Authorization:`Bearer ${token}`
+        Authorization:` Bearer ${token}`
       });
 
       const response = await firstValueFrom(
