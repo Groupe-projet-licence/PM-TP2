@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { IonicModule } from '@ionic/angular'; // Import IonicModule
 import { FormsModule } from '@angular/forms'; // Import FormsModule for ngModel
 
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.page.html',
@@ -16,7 +17,8 @@ export class RegisterPage {
   email = '';
   password = '';
   password_confirmation = '';
-  role = 'student';
+  role = '';
+  niveau='';
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -26,7 +28,8 @@ export class RegisterPage {
       email: this.email,
       password: this.password,
       password_confirmation: this.password_confirmation,
-      role: this.role
+      role: this.role,
+      niveau: this.niveau
     };
 
     this.authService.register(data).subscribe({

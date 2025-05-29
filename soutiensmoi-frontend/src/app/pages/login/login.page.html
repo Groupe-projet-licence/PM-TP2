@@ -5,7 +5,12 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ion-input [(ngModel)]="email" placeholder="Email" type="email"></ion-input>
-  <ion-input [(ngModel)]="password" placeholder="Mot de passe" type="password"></ion-input>
-  <ion-button expand="block" (click)="login()">Se connecter</ion-button>
+  <div class="login-container">
+    <h1>Se connecter</h1>
+<ion-content class="ion-padding">
+   <ion-input label="login" label-placement="floating" fill="outline" type="text"></ion-input>
+    <ion-input label="password" label-placement="floating" fill="outline" type="password"></ion-input>
+   <ion-button expand="block" class="register-button" type="submit">S’inscrire</ion-button>
 </ion-content>
+</div>
+

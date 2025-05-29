@@ -1,0 +1,40 @@
+.register-container {
+  max-width: 200px;
+  margin: auto;
+  text-align: center;
+
+  h1 {
+    margin-top: 60px;
+    font-size: 24px;
+    color: #007aff;
+  }
+
+  .subtitle {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  ion-input {
+    margin-bottom: 15px;
+  }
+
+  .register-button {
+    margin-top: 10px;
+    background-color: #007aff;
+  }
+
+  .login-link {
+    margin-top: 20px;
+
+    p {
+      font-size: 14px;
+    }
+
+    a {
+      color: #007aff;
+      text-decoration: none;
+      font-weight: 500;
+    }
+  }
+}

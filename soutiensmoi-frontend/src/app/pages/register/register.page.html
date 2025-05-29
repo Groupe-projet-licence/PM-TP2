@@ -5,15 +5,32 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ion-input [(ngModel)]="name" placeholder="Nom" type="text"></ion-input>
-  <ion-input [(ngModel)]="email" placeholder="Email" type="email"></ion-input>
-  <ion-input [(ngModel)]="password" placeholder="Mot de passe" type="password"></ion-input>
-  <ion-input [(ngModel)]="password_confirmation" placeholder="Confirmez le mot de passe" type="password"></ion-input>
+  <div class="register-container">
+    <h1>Créer un compte</h1>
 
-  <ion-select [(ngModel)]="role" placeholder="Rôle">
+    <ion-input label="Nom" label-placement="floating" fill="outline" type="text"></ion-input>
+    <ion-input label="Email" label-placement="floating" fill="outline" type="email"></ion-input>
+    <ion-input label="Mot de passe" label-placement="floating" fill="outline" type="password"></ion-input>
+    <ion-input label="Confirmer le mot de passe" label-placement="floating" fill="outline" type="password"></ion-input>
+<ion-select label="role" placeholder="Rôle">
     <ion-select-option value="student">Étudiant</ion-select-option>
     <ion-select-option value="tutor">Tuteur</ion-select-option>
   </ion-select>
+  <ion-select label="niveau" placeholder="votre-nivau">
+    <ion-select-option value="niv1">Niveau1</ion-select-option>
+<ion-select-option value="niv2">Niveau2</ion-select-option>
+<ion-select-option value="niv3">Niveau3</ion-select-option>
+<ion-select-option value="niv4">Niveau4</ion-select-option>
+<ion-select-option value="niv5">Niveau5</ion-select-option>
+<ion-select-option value="niv6">Niveau6</ion-select-option>
+<ion-select-option value="niv7">Niveau7</ion-select-option>
+<ion-select-option value="niv8">Niveau8</ion-select-option>
+  </ion-select>
+    <ion-button expand="block" class="register-button" type="submit"><a href="/register"></a>S’inscrire</ion-button>
 
-  <ion-button expand="block" (click)="register()">S'inscrire</ion-button>
+    <div class="login-link">
+      <p>Vous avez déjà un compte ? <a href="/login">Se connecter</a></p>
+      <p>page d'accueil <a href="/home">welcom</a></p>
+    </div>
+  </div>
 </ion-content>
