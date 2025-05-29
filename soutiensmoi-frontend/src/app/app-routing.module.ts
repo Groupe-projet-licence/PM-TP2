@@ -8,8 +8,17 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'register',
+    redirectTo: 'tutor-profile',
     pathMatch: 'full'
+  },
+  {path:'tutor-profile',
+    loadChildren:()=>import('./pages/tutor-profile/tutor-profile.module').then(m=>m.TutorProfilePageModule)
+  },
+  {path:'feedback',
+    loadChildren:()=>import('./pages/feedback/feedback.module').then(m=>m.FeedbackPageModule)
+  },
+  {path:'chat',
+    loadChildren:()=>import('./pages/chat/chat.module').then(m=>m.ChatPageModule)
   },
   {
     path: 'login',

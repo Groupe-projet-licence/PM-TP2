@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Soutiens-moi</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <h2>Laisser un feedback</h2>
+  
+  <ion-grid>
+    <ion-row>
+      <ion-col *ngFor="let i of [1,2,3,4,5]">
+        <ion-icon 
+          [name]="rating >= i ? 'star' : 'star-outline'" 
+          (click)="setRating(i)" 
+          color="warning" 
+          style="font-size: 30px;">
+        </ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-item>
+    <ion-textarea [(ngModel)]="commentaire" placeholder="Commentaire (facultatif)"></ion-textarea>
+  </ion-item>
+
+  <ion-button expand="block" (click)="envoyerFeedback()">Envoyer</ion-button>
+</ion-content>

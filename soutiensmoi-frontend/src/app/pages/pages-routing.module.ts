@@ -10,6 +10,14 @@ const routes: Routes = [
   },  {
     path: 'search',
     loadChildren: () => import('./search/search.module').then( m => m.SearchPageModule)
+  },
+  {
+    path: 'tutor-profile',
+    loadChildren: () => import('./tutor-profile/tutor-profile.module').then( m => m.TutorProfilePageModule)
+  },
+  {
+    path: 'feedbacktutor',
+    loadChildren: () => import('./feedbacktutor/feedbacktutor.module').then( m => m.FeedbacktutorPageModule)
   }
 
 ];
