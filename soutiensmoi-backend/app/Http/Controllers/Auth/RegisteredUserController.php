@@ -31,6 +31,7 @@ class RegisteredUserController extends Controller
         $validated['password'] = Hash::make($validated['password']);
         $user = User::create($validated);
 
+        //Auth::login($user);
         $token = $user->createToken('authToken')->plainTextToken;
         
         return response()->json(['user' => $user, 'token' => $token], 201);
