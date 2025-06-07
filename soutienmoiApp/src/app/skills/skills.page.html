@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Compétences disponibles</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let skill of skills">
+      <ion-label>
+        <h2>{{ skill.name }}</h2>
+        <p>Niveau: {{ skill.level }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

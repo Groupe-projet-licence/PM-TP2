@@ -1,0 +1,47 @@
+<ion-header class="toolbar">
+  <ion-toolbar class="toolbar">
+    <ion-title>{{ isLogin ? 'Connexion' : 'Crée votre compte pour commencer' }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-item>
+    <ion-label position="floating">Nom</ion-label>
+    <ion-input [(ngModel)]="name"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Mot de passe</ion-label>
+    <ion-input type="password" [(ngModel)]="password"></ion-input>
+  </ion-item>
+
+  <ion-item *ngIf="!isLogin">
+    <ion-label position="floating">Confirmation mot de passe</ion-label>
+    <ion-input type="password"></ion-input>
+  </ion-item>
+
+  <ion-item *ngIf="!isLogin">
+    <ion-label>Rôle</ion-label>
+    <ion-select [(ngModel)]="role">
+      <ion-select-option value="student">Élève</ion-select-option>
+      <ion-select-option value="tutor">Tuteur</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item *ngIf="!isLogin && role === 'tutor'">
+    <ion-label position="floating">Compétence</ion-label>
+    <ion-input [(ngModel)]="skill_name" placeholder="Ex. Mathématiques"></ion-input>
+  </ion-item>
+
+  <ion-item *ngIf="!isLogin && role === 'tutor'">
+    <ion-label position="floating">Niveau</ion-label>
+    <ion-input [(ngModel)]="skill_level" placeholder="Ex. Niveau 1"></ion-input>
+  </ion-item>
+
+  <ion-text color="danger" *ngIf="error">{{ error }}</ion-text>
+
+  <ion-button expand="block" (click)="submit()">{{ isLogin ? 'Se connecter' : 'S\'inscrire' }}</ion-button>
+  <ion-button expand="block" fill="outline" (click)="toggleMode()">
+    {{ isLogin ? 'Créer un compte' : 'Se connecter' }}
+  </ion-button>
+</ion-content>
